@@ -25,7 +25,8 @@ public class JobSeq {
 	static NodeJob root;
 	NodeJob tail;
 	
-	
+	///This function simply takes in a string in the format of "a => b" or "a =>" and inserts the Jobs into the 
+	///Nodes and the Node is inserted into the Linked List.
 	public void seqOrder(String s) throws Exception {
 		if(s!=null) {
 			String[] s1 = s.split("=>");
@@ -50,6 +51,8 @@ public class JobSeq {
 		}
 	}
 	
+	///Once all the Job Nodes are inserted in the linked List, this function is called to attach each Node to the
+	//Node that it is dependent upon.
 	public void attachDependency() {
 		if(root != null) {
 			NodeJob n = root;
@@ -66,6 +69,7 @@ public class JobSeq {
 		
 	}
 	
+	////This function finds the nodes whose value matches the inserted value
 	public NodeJob search(String val) {
 		
 		NodeJob n = root;
@@ -81,6 +85,8 @@ public class JobSeq {
 		return n;
 	}
 	
+	
+	//// The function traverses through the linked list and displays the node values in order of their dependencies.
 	public void orderTrav(NodeJob n) throws Exception {
 		
 			while(n != null )
@@ -102,6 +108,7 @@ public class JobSeq {
 			}
 	}
 	
+	//// function simply displays the node values in order of their insertion into the linked list
 	public void traverse() {
 		if(root != null) {
 			NodeJob n = root;
@@ -142,7 +149,7 @@ public class JobSeq {
 	    /// Taking in File Path for input
 		if(n==1) {
 			badInput = true;
-			 //"C:\\Users\\Komal\\Desktop\\Matlab\\jobSeq.txt"
+			 
 			 Scanner sc;
 			 do {
 				 try 
@@ -174,15 +181,16 @@ public class JobSeq {
 			
 			do { 
 				System.out.println("Please Enter the Job String in the following sequence: \n(a => b)\nTo exit press '0' ");
-				String s1 = scan.next();
+				String s1 = scan.nextLine();
 					
 				System.out.println("");
 					
 				if(s1.equals("0"))
 					badInput = false;
 				else
-					/// adding Jobs to the sequence
+				{/// adding Jobs to the sequence
 					sq.seqOrder(s1);
+				}
 			 }while(badInput);
 			
 		}
@@ -199,7 +207,11 @@ public class JobSeq {
 			/// computing Job sequence path based on dependencies
 			sq.orderTrav(root);				
 			}
-			catch(StackOverflowError e){
+			catch(StackOverflowError e){ 
+				// Exception will let users know if there is a circular dependency. The code design recursively traces back 
+				//dependencies per each node, hence in case of circular dependencies a continuous recursive call takes place
+				//which will result in an overflow situation. Taking advantage of this, a stackOverFlow error is caught, 
+				//and an exception is thrown which will let the users know that a circular dependency exists.
 			   throw new Exception("Job cant have circular dependencies"); 
 			} 
 		}
