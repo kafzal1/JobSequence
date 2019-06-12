@@ -128,21 +128,24 @@ public class JobSeq {
 	public static void main(String args[]) throws Exception {
 		
 		int n=0;
-		Scanner scan = new Scanner(System.in);
+		Scanner scan;
 		boolean badInput = true;
 		JobSeq sq = new JobSeq();
 		
 		System.out.println("You have two options to input Job order sequence: \n1) Via Text file\n2) Via String Input");
-	    do {
+	
+		do {
 	        try {
 	        	System.out.println("Please input selection option 1 or 2: ");
-	    		n = scan.nextInt();
-	    		if(n==1 || n==2)
-	    			badInput = false;
+	        	scan = new Scanner(System.in);
+	        		n = scan.nextInt();
+	        		if(n==1 || n==2)
+	        			badInput = false;
 	    		
 	        	} catch (InputMismatchException e) 
 	        	{
 	        	badInput = true;
+	    		n = 0;
 	        	}
 	    } while (badInput);
 
@@ -155,6 +158,7 @@ public class JobSeq {
 				 try 
 				 {
 					System.out.println("Please Enter the file Path: ");
+					scan = new Scanner(System.in);
 					String fileName = scan.nextLine();
 					File file =  new File(fileName); 
 					 
@@ -180,6 +184,7 @@ public class JobSeq {
 			badInput = true;
 			
 			do { 
+				scan = new Scanner(System.in);
 				System.out.println("Please Enter the Job String in the following sequence: \n(a => b)\nTo exit press '0' ");
 				String s1 = scan.nextLine();
 					
